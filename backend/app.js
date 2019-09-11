@@ -57,9 +57,8 @@ app.get('/api/recipes', (request, response, next) => {
 });
 
 app.get('/api/recipes/:id', (request, response, next) => {
-    console.log(request.param);
     Recipe.findOne({
-        _id:request.param.id
+        _id:request.params.id
     })
     .then((recipe) => {
         response.status(200).json(recipe);
@@ -78,10 +77,10 @@ app.put('/api/recipes/:id', (request, response, next) => {
         instructions: request.body.instructions,
         difficulty: request.body.difficulty,
         time: request.body.time,
-        _id:request.param.id
+        _id:request.params.id
     });
 
-    Recipe.updateOne({_id:request.param.id}, recipe)
+    Recipe.updateOne({_id:request.params.id}, recipe)
     .then(() => {
         response.status(201).json({
             message:"Success"
